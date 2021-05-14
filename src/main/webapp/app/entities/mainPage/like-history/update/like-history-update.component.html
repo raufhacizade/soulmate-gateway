@@ -1,0 +1,110 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-like-history-heading" data-cy="LikeHistoryCreateUpdateHeading">Create or edit a Like History</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_whoLikeId">Who Like Id</label>
+          <input type="number" class="form-control" name="whoLikeId" id="field_whoLikeId" data-cy="whoLikeId" formControlName="whoLikeId" />
+          <div *ngIf="editForm.get('whoLikeId')!.invalid && (editForm.get('whoLikeId')!.dirty || editForm.get('whoLikeId')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('whoLikeId')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('whoLikeId')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_likedPersonId">Liked Person Id</label>
+          <input
+            type="number"
+            class="form-control"
+            name="likedPersonId"
+            id="field_likedPersonId"
+            data-cy="likedPersonId"
+            formControlName="likedPersonId"
+          />
+          <div
+            *ngIf="
+              editForm.get('likedPersonId')!.invalid && (editForm.get('likedPersonId')!.dirty || editForm.get('likedPersonId')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('likedPersonId')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('likedPersonId')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_sendDate">Send Date</label>
+          <div class="input-group">
+            <input
+              id="field_sendDate"
+              data-cy="sendDate"
+              type="text"
+              class="form-control"
+              name="sendDate"
+              ngbDatepicker
+              #sendDateDp="ngbDatepicker"
+              formControlName="sendDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="sendDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_whoLiked">Who Liked</label>
+          <select class="form-control" id="field_whoLiked" data-cy="whoLiked" name="whoLiked" formControlName="whoLiked">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="personOption.id === editForm.get('whoLiked')!.value?.id ? editForm.get('whoLiked')!.value : personOption"
+              *ngFor="let personOption of peopleSharedCollection; trackBy: trackPersonById"
+            >
+              {{ personOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_likedPerson">Liked Person</label>
+          <select class="form-control" id="field_likedPerson" data-cy="likedPerson" name="likedPerson" formControlName="likedPerson">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="personOption.id === editForm.get('likedPerson')!.value?.id ? editForm.get('likedPerson')!.value : personOption"
+              *ngFor="let personOption of peopleSharedCollection; trackBy: trackPersonById"
+            >
+              {{ personOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

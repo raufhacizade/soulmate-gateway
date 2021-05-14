@@ -1,0 +1,94 @@
+<div>
+  <h2 id="page-heading" data-cy="LikeHistoryHeading">
+    <span>Like Histories</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-like-history"
+        [routerLink]="['/like-history/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Like History </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="likeHistories?.length === 0">
+    <span>No likeHistories found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="likeHistories && likeHistories.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Who Like Id</span></th>
+          <th scope="col"><span>Liked Person Id</span></th>
+          <th scope="col"><span>Send Date</span></th>
+          <th scope="col"><span>Who Liked</span></th>
+          <th scope="col"><span>Liked Person</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let likeHistory of likeHistories; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/like-history', likeHistory.id, 'view']">{{ likeHistory.id }}</a>
+          </td>
+          <td>{{ likeHistory.whoLikeId }}</td>
+          <td>{{ likeHistory.likedPersonId }}</td>
+          <td>{{ likeHistory.sendDate | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="likeHistory.whoLiked">
+              <a [routerLink]="['/person', likeHistory.whoLiked?.id, 'view']">{{ likeHistory.whoLiked?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="likeHistory.likedPerson">
+              <a [routerLink]="['/person', likeHistory.likedPerson?.id, 'view']">{{ likeHistory.likedPerson?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/like-history', likeHistory.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/like-history', likeHistory.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(likeHistory)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="likeHistory">
+      <h2 data-cy="likeHistoryDetailsHeading"><span>Like History</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ likeHistory.id }}</span>
+        </dd>
+        <dt><span>Who Like Id</span></dt>
+        <dd>
+          <span>{{ likeHistory.whoLikeId }}</span>
+        </dd>
+        <dt><span>Liked Person Id</span></dt>
+        <dd>
+          <span>{{ likeHistory.likedPersonId }}</span>
+        </dd>
+        <dt><span>Send Date</span></dt>
+        <dd>
+          <span>{{ likeHistory.sendDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Who Liked</span></dt>
+        <dd>
+          <div *ngIf="likeHistory.whoLiked">
+            <a [routerLink]="['/person', likeHistory.whoLiked?.id, 'view']">{{ likeHistory.whoLiked?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Liked Person</span></dt>
+        <dd>
+          <div *ngIf="likeHistory.likedPerson">
+            <a [routerLink]="['/person', likeHistory.likedPerson?.id, 'view']">{{ likeHistory.likedPerson?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/like-history', likeHistory.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

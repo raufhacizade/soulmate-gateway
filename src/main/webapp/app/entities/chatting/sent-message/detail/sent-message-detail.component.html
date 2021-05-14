@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="sentMessage">
+      <h2 data-cy="sentMessageDetailsHeading"><span>Sent Message</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ sentMessage.id }}</span>
+        </dd>
+        <dt><span>Sender Id</span></dt>
+        <dd>
+          <span>{{ sentMessage.senderId }}</span>
+        </dd>
+        <dt><span>To Person Id</span></dt>
+        <dd>
+          <span>{{ sentMessage.toPersonId }}</span>
+        </dd>
+        <dt><span>Message</span></dt>
+        <dd>
+          <span>{{ sentMessage.message }}</span>
+        </dd>
+        <dt><span>Send Date</span></dt>
+        <dd>
+          <span>{{ sentMessage.sendDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Is Deleted</span></dt>
+        <dd>
+          <span>{{ sentMessage.isDeleted }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/sent-message', sentMessage.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

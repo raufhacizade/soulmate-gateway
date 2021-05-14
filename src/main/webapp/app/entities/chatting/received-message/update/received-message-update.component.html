@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-received-message-heading" data-cy="ReceivedMessageCreateUpdateHeading">Create or edit a Received Message</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_receiverId">Receiver Id</label>
+          <input
+            type="number"
+            class="form-control"
+            name="receiverId"
+            id="field_receiverId"
+            data-cy="receiverId"
+            formControlName="receiverId"
+          />
+          <div *ngIf="editForm.get('receiverId')!.invalid && (editForm.get('receiverId')!.dirty || editForm.get('receiverId')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('receiverId')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('receiverId')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fromPersonId">From Person Id</label>
+          <input
+            type="number"
+            class="form-control"
+            name="fromPersonId"
+            id="field_fromPersonId"
+            data-cy="fromPersonId"
+            formControlName="fromPersonId"
+          />
+          <div
+            *ngIf="editForm.get('fromPersonId')!.invalid && (editForm.get('fromPersonId')!.dirty || editForm.get('fromPersonId')!.touched)"
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('fromPersonId')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('fromPersonId')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_message">Message</label>
+          <input type="text" class="form-control" name="message" id="field_message" data-cy="message" formControlName="message" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_receivedDate">Received Date</label>
+          <div class="input-group">
+            <input
+              id="field_receivedDate"
+              data-cy="receivedDate"
+              type="text"
+              class="form-control"
+              name="receivedDate"
+              ngbDatepicker
+              #receivedDateDp="ngbDatepicker"
+              formControlName="receivedDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="receivedDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_isDeleted">Is Deleted</label>
+          <input type="checkbox" class="form-check" name="isDeleted" id="field_isDeleted" data-cy="isDeleted" formControlName="isDeleted" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

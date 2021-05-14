@@ -41,6 +41,8 @@
     "packageFolder": "com/elte/soulmate/gateway",
     "jwtSecretKey": "NzRhZDViZDQzMjMzYzYyZTFkMGM0M2EyMGFiNjZmMTg2MmJiOGIyOThiNTUwMGU4YTY4ZjFjNDFkZDcxZGNkOWY3NzRmMjVlZDEyNjcyMjBhZjk1NWU1N2RjNWNjZGEyZjExYTRmZDQzMWUzYjE5ZWU3ZDk1ZDhjOTMxOWRkODk=",
     "clientPackageManager": "npm",
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Person", "LikeHistory", "ReceivedMessage", "SentMessage"],
+    "appFolder": "gateway"
   }
 }

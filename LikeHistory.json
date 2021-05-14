@@ -1,0 +1,43 @@
+{
+  "microserviceName": "mainPage",
+  "clientRootFolder": "mainPage",
+  "databaseType": "sql",
+  "fields": [
+    {
+      "fieldName": "whoLikeId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "likedPersonId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sendDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "whoLiked",
+      "otherEntityName": "person",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": [],
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipName": "likedPerson",
+      "otherEntityName": "person",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    }
+  ],
+  "service": "serviceImpl",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "no",
+  "name": "LikeHistory",
+  "changelogDate": "20210514091218"
+}
